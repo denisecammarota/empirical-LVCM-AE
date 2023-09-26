@@ -1,6 +1,6 @@
 # Exploration of scaling of equilibria Nneg
 # for beta = 1/3 in AE and different 
-# with m scaling as b
+# delta m scaling and different C0
 # Code developed by Denise Cammarota
 
 library(latex2exp)
@@ -45,20 +45,20 @@ a0 = 32*1024
 b0 = 5.73 
 a = 0.3 
 n = 100 
-beta = 1/3
+beta = 0 
 s = a*(n-1) + 1 
 delta = -1/4
-C0 = 100
+C0_seq = seq(1,500,1)
 delta_seq = seq(-0.5,0.25,0.05)
-m0_seq = b0*seq(5,500,5)
+m0 = b0*10
 M = seq(10**-1,10**4,10) 
-slope_mat = matrix(nrow = length(delta_seq),ncol = length(m0_seq),0)
+slope_mat = matrix(nrow = length(delta_seq),ncol = length(C0_seq),0)
 i = 0
 j = 0
 for (delta in delta_seq){
   j = 0
   i = i+1
-  for(m0 in m0_seq){
+  for(C0 in C0_seq){
     j = j+1
     pars = c(a0,b0,m0,C0,s,beta,delta)
     x = log(M) 
@@ -69,17 +69,11 @@ for (delta in delta_seq){
     slope_mat[i,j] = fit$coefficients[['x']]
   }
 }
-colnames(slope_mat) = m0_seq/b0
+colnames(slope_mat) = C0_seq
 rownames(slope_mat) = delta_seq
 data_melt <- melt(slope_mat) 
 ggp <- ggplot(data_melt, aes(X1, X2)) +                     
   geom_tile(aes(fill = value)) + theme_bw() +
-  labs(x = TeX('$\\delta$'), y = TeX('$m_0/b_0$'), title = TeX('$\\beta = 1/3, C_0 = 100$')) + 
+  labs(x = TeX('$\\delta$'), y = TeX('$C_0$'), title = TeX('$\\beta = 0, m_0 = 10$')) + 
   scale_fill_viridis(discrete=FALSE) + guides(fill = guide_colourbar(title = "Slope"))
 ggp    
-
-# dependence of slope with delta
-plot(delta_seq,slope_mat[,100],type = 'b', col = 'red', 
-     xlab = TeX('$\\delta$'), ylab = TeX('Slope'), lwd = 2)
-
-
