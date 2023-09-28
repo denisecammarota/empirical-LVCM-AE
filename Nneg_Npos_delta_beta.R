@@ -79,7 +79,7 @@ data_melt_pos <- melt(slope_mat_pos)
 ggp_pos <- ggplot(data_melt_pos, aes(X1, X2)) +                     
   geom_tile(aes(fill = value)) + theme_bw() +
   labs(x = TeX('$\\beta$'), y = TeX('$\\delta$'), title = TeX('Slope for $N_{pos}$')) + 
-  scale_fill_viridis(discrete=FALSE) + guides(fill = guide_colourbar(title = "Slope")) +
+  scale_fill_viridis(discrete=FALSE, limits = c(-1.25, -0.8)) + guides(fill = guide_colourbar(title = "Slope")) +
   theme(plot.title = element_text(hjust = 0.5), axis.title=element_text(size=14))
 
 # plot for negative sign equilibrium
