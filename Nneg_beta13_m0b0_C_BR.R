@@ -35,9 +35,6 @@ N_neg <- function(M,pars){
   term1 = 0.5*((a0*(M**-1))/(s))*(1 - (m0/b0)*(M**(delta+0.25)))
   term2 = (a0*m0*C0*(M**(beta+delta-(3/4))))/(b0*s)
   res_neg = term1 - sqrt(term1**2 - term2)
-  print(term1)
-  print(term2)
-  print(res_neg)
   return(res_neg)
 }
 
@@ -157,15 +154,15 @@ legend(x = "topright",          # Position
 
 # Doing a basic sensibility plot of scaling vs C0
 a0 = 32*1024 
-b0 = 5.73 
+b0 = 5.73
 a = 0.3 
 n = 100 
 beta = 1/3 
 s = a*(n-1) + 1 
 delta = -1/4
-C0_seq = seq(1,2,0.01)
-m0_seq = b0*seq(0.1,0.2,0.01)
-M = seq(10**-1,10**4,10) 
+C0_seq = seq(0.01,0.05,0.001)
+m0_seq = b0*seq(0.01,0.2,0.01)
+M = seq(10**-1,10**3,10) 
 slope_mat = matrix(nrow = length(C0_seq),ncol = length(m0_seq),0)
 i = 0
 j = 0
@@ -178,8 +175,6 @@ for (C0 in C0_seq){
     x = log(M) 
     y = log(N_neg(M, pars))
     fit = lm(y ~ x)
-    print(i)
-    print(j)
     slope_mat[i,j] = fit$coefficients[['x']]
   }
 }
