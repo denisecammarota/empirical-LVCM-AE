@@ -1,6 +1,15 @@
 # Exploration of scaling of equilibria Nneg 
 # and Npos for delta and beta
 
+library(latex2exp)
+library(RColorBrewer)
+library(ggplot2)
+library(reshape)
+library(viridis)
+library(hrbrthemes)
+library(cowplot)
+
+
 N_pos <- function(M,pars){
   a0 = pars[1]
   b0 = pars[2]

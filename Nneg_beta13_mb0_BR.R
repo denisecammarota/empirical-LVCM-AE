@@ -74,7 +74,7 @@ data_melt <- melt(slope_mat)
 ggp <- ggplot(data_melt, aes(X1, X2)) +                     
   geom_tile(aes(fill = value)) + theme_bw() +
   labs(x = TeX('$\\delta$'), y = TeX('$m_0/b_0$'), title = TeX('$\\beta = 1/3, C_0 = 0.1$')) + 
-  scale_fill_viridis(discrete=FALSE) + guides(fill = guide_colourbar(title = "Slope"))
+  scale_fill_viridis(discrete=FALSE, limits = c(-0.3,0.5)) + guides(fill = guide_colourbar(title = "Slope"))
 ggp    
 
 # dependence of slope with delta
